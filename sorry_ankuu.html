@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sorry Ankuuuuu ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Cute Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    background:linear-gradient(135deg,#ffb6c1,#ffc0cb);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Poppins',sans-serif;
+    overflow:hidden;
+}
+
+/* Card */
+.box{
+    position:relative;
+    background:white;
+    width:90%;
+    max-width:380px;
+    border-radius:20px;
+    padding:18px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    max-height:85vh;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+/* Image */
+img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:15px;
+    margin-bottom:10px;
+}
+
+/* Text */
+h1{
+    font-family:'Pacifico',cursive;
+    color:#ff4d6d;
+    font-size:26px;
+}
+p{
+    color:#555;
+    font-size:15px;
+}
+
+/* Button */
+button{
+    margin-top:12px;
+    padding:10px 22px;
+    border:none;
+    border-radius:20px;
+    background:#ff4d6d;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+/* Video background */
+.bg-video{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:20px;
+    z-index:-1;
+}
+
+/* Video overlay */
+.overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(255,182,193,0.65);
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+/* Hearts */
+.heart{
+    position:absolute;
+    color:#ff4d6d;
+    animation:float 5s linear infinite;
+}
+@keyframes float{
+    0%{transform:translateY(100vh);opacity:1;}
+    100%{transform:translateY(-10vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music (user tap required) -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mp3">
+</audio>
+
+<div class="box" id="box" onclick="nextSlide()">
+    <img id="photo" src="img1.jpg">
+    <h1 id="text">Hiii Ankuuuuu ❤️</h1>
+    <p id="sub">I have something special for you 🥺</p>
+    <button id="playBtn" onclick="startMusic(event)">Tap to Play Music 🎵</button>
+</div>
+
+<script>
+let step = 0;
+
+const slides = [
+ {img:"img1.jpg", title:"Hiii Ankuuuuu ❤️", msg:"I have something special for you 🥺"},
+ {img:"img2.jpg", title:"Shonaaaa 😘", msg:"Jab tum naraz hoti ho na, dil bilkul chup ho jaata hai 💔"},
+ {img:"img3.jpg", title:"Jaanuuu ❤️", msg:"Main toh sirf aapka hi baccha hoon 🙈"},
+ {img:"img4.jpg", title:"Meri Duniya 🌍", msg:"Tumhari ek smile se sab theek ho jaata hai 🥹💕"},
+ {img:"img5.jpg", title:"Ankuuuuu ❤️", msg:"Tum ho toh sab kuch perfect lagta hai 😚"},
+ {img:"img6.jpg", title:"I Love You 💖", msg:"Har janam mein sirf tum chahiye 🥹💕"},
+ {video:true}
+];
+
+/* Start Music */
+function startMusic(e){
+    e.stopPropagation();   // slide change na ho
+    document.getElementById("bgMusic").play();
+    document.getElementById("playBtn").style.display = "none";
+}
+
+/* Next Slide */
+function nextSlide(){
+ const box=document.getElementById("box");
+ step++;
+ if(step >= slides.length) return;
+
+ /* Last slide with video */
+ if(slides[step].video){
+    box.onclick = null;
+    box.innerHTML = `
+      <video class="bg-video" autoplay loop muted>
+        <source src="sorry.mp4" type="video/mp4">
+      </video>
+      <div class="overlay">
+        <h1>I'm Really Sorry 😔</h1>
+        <p>Please maan jao naa meri Ankuuuuu ❤️</p>
+        <button onclick="share()">Maaf kar do 😢</button>
+      </div>
+    `;
+    return;
+ }
+
+ /* Normal slide */
+ box.innerHTML = `
+    <img src="${slides[step].img}">
+    <h1>${slides[step].title}</h1>
+    <p>${slides[step].msg}</p>
+ `;
+}
+
+/* WhatsApp */
+function share(){
+ const msg = encodeURIComponent(
+  "Ankuuuuu ❤️\nMain dil se sorry hoon 😔\nTum meri duniya ho 🥺\nI Love You Forever 😘"
+ );
+ window.open("https://wa.me/?text="+msg,"_blank");
+}
+
+/* Floating Hearts */
+setInterval(()=>{
+ const h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="❤️";
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=(16+Math.random()*20)+"px";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),5000);
+},300);
+</script>
+
+</body>
+</html>
